@@ -23,6 +23,7 @@ public class RegisterController {
         String email = data.get("email");
         String code = data.get("code");
         String group = data.get("group");
+//        String jwtCode = data.get("jwtCode");
         return registerService.register(username, name, password, conPassword, group, email, code);
     }
 }

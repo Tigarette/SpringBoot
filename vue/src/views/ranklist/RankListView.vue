@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" style="width:100%">
         <div class="col-2"></div>
         <div class="col-8">
             <div class="card" style="margin-top: 30px;">
@@ -21,11 +21,11 @@
                             <tr>
                                 <th>{{ (now_page - 1) * 10 + index + 1 }}</th>
                                 <td v-if="user.name !== null">
-                                    <img :src="'http://q1.qlogo.cn/g?b=qq&nk=' + user.mail + '&s=100'">
+                                    <img :src="user.photo">
                                     {{ user.name }}
                                 </td>
                                 <th v-else style="color: red;">
-                                    <img :src="'http://q1.qlogo.cn/g?b=qq&nk=' + user.mail + '&s=100'">
+                                    <img :src="user.photo">
                                     他没名
                                 </th>
                                 <td v-if="user.represent !== null">{{ user.represent }}</td>

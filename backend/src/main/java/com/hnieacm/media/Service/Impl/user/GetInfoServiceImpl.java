@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,11 @@ public class GetInfoServiceImpl implements GetInfoService {
         map.put("admin", String.valueOf(user.getAdmin()));
         map.put("grp", user.getGrp());
         map.put("username", user.getUsername());
+        map.put("process", String.valueOf(user.getProcess()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        map.put("date", sdf.format(user.getDate()));
+        map.put("photo", user.getPhoto());
+        map.put("represent", user.getRepresent());
         return map;
     }
 }

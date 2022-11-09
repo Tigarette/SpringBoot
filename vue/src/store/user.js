@@ -11,7 +11,13 @@ export default ({
         grp: "",
         is_login: false,
         pulling_info: true,
+        process: 0,
         time: 0,
+        interval: [], // 摧毁计时器
+        fromPage: "",
+        date: "",
+        photo: "",
+        represent: "",
     },
     getters: {},
     mutations: {
@@ -23,6 +29,10 @@ export default ({
             state.grp = user.grp;
             state.is_login = user.is_login;
             state.username = user.username;
+            state.process = user.process;
+            state.date = user.date;
+            state.photo = user.photo;
+            state.represent = user.represent;
         },
         updateToken(state, token) {
             state.token = token;
@@ -36,6 +46,11 @@ export default ({
             state.grp = "";
             state.is_login = false;
             state.time = "";
+            state.interval = 0;
+            state.fromPage = "";
+            state.process = "";
+            state.photo = "";
+            state.represent = "";
         },
         updatePullingInfo(state, pulling_info) {
             state.pulling_info = pulling_info;
@@ -43,6 +58,18 @@ export default ({
         updateTime(state, time) {
             state.time = time;
         },
+        updateInterval(state, interval) {
+            state.interval = interval;
+        },
+        updateFromPage(state, fromPage) {
+            state.fromPage = fromPage;
+        },
+        updateName(state, name) {
+            state.name = name;
+        },
+        updateRepresent(state, represent) {
+            state.represent = represent;
+        }
     },
     actions: {
         login(context, data) {
@@ -113,6 +140,9 @@ export default ({
                     console.log(resp);
                 }
             })
+        },
+        destoryInterval(context) {
+            clearInterval(context.state.interval);
         }
     },
     modules: {}

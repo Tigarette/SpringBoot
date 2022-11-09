@@ -25,6 +25,10 @@ public class JwtUtil {
         JwtBuilder builder = getJwtBuilder(subject, null, getUUID());
         return builder.compact();
     }
+    public static JwtBuilder creatJWT(String subject,Long ttlMillis){
+        return getJwtBuilder(subject, ttlMillis, getUUID());
+    }
+
 
     private static JwtBuilder getJwtBuilder(String subject, Long ttlMillis, String uuid) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;

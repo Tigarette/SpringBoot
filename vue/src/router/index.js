@@ -9,6 +9,7 @@ import NotFoundView from '@/views/404/NotFoundView.vue';
 import MediaListView from '@/views/media/MediaListView.vue';
 import ChoiceMediaView from '@/views/media/ChoiceMediaView.vue';
 import DownLoadView from '@/views/media/DownLoadView.vue';
+import UserForgetPasswordView from '@/views/user/UserForgetPasswordView.vue'
 
 import store from '@/store'
 
@@ -51,6 +52,14 @@ const routes = [{
         component: UserInfoView,
         meta: {
             requestAuth: true,
+        }
+    },
+    {
+        path: '/user/forget/',
+        name: "user_change_index",
+        component: UserForgetPasswordView,
+        meta: {
+            requestAuth: false,
         }
     },
     {
@@ -115,12 +124,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.meta.requestAuth && !store.state.user.is_login) {
         next({ name: "user_login" });
+        store.commit("updateFromPage", to.path);
     } else {
         next();
     }
     if (from.name === 'media') {
         let path = from.params.dir_name + "/" + from.params.dir + "/" + from.params.media_name;
         store.dispatch("SetHistory", path);
+        store.dispatch("destoryInterval");
     }
 })
 

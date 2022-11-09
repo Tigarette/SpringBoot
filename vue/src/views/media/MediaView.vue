@@ -93,10 +93,6 @@ export default {
         }
         GetHistory();
 
-        window.onbeforeunload = function (e) {
-            e.returnValue = "";
-            store.dispatch("SetHistory", path1)
-        }
         const onplay = () => {
             interval = setInterval(function () {
                 $.ajax({
@@ -105,18 +101,20 @@ export default {
                     headers: {
                         Authorization: "Bearer " + store.state.user.token,
                     },
-                    success(resp) {
-                        console.log(resp);
+                    success() {
+                        store.commit("updateTime", time);
+                        store.dispatch("SetHistory", path1);
                     },
                     error(resp) {
                         console.log(resp);
                     }
                 })
             }, 5000);
+            store.commit("updateInterval", interval);
         }
 
         const onpause = () => {
-            clearTimeout(interval);
+            clearInterval(interval);
         }
 
         return {

@@ -18,7 +18,16 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" class="btn btn-primary form-control" value="登录">
+                        <div class="row">
+                            <div class="col-6">
+                                <router-link type="submit" class="btn btn-secondary form-control" :to="{
+                                    name: 'user_change_index'
+                                }">忘记密码</router-link>
+                            </div>
+                            <div class="col-6">
+                                <input type="submit" class="btn btn-primary form-control" value="登录">
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -43,7 +52,10 @@ export default {
             store.commit("updateToken", jwt_token);
             store.dispatch("getinfo", {
                 success() {
-                    router.push({ name: 'home' });
+                    if (store.state.user.fromPage === '') {
+                        store.commit("updateFromPage", "/");
+                    }
+                    router.push(store.state.user.fromPage);
                     store.commit("updatePullingInfo", false);
                 },
                 error() {

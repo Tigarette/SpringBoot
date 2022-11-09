@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnieacm.media.Service.user.RegisterService;
 import com.hnieacm.media.dao.UserDao;
 import com.hnieacm.media.model.User;
+import com.hnieacm.media.utils.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,12 @@ public class RegisterServiceImpl implements RegisterService {
         username = username.trim();
         password = password.trim();
         name = name.trim();
+
+        List<User> lists1 = userDao.selectList(new QueryWrapper<User>().eq("mail", email));
+        if(!lists1.isEmpty()){
+            map.put("error_message", "该邮箱已被注册,可尝试找回密码");
+            return map;
+        }
 
         if(username.length() == 0){
             map.put("error_message", "用户名不得为空!");
@@ -102,6 +110,17 @@ public class RegisterServiceImpl implements RegisterService {
         }
         String code1 = (String)session.getAttribute("code");
         String email1 = (String)session.getAttribute("email");
+//        Claims claims;
+//        try {
+//            System.out.println(jwtCode);
+//            claims = JwtUtil.parseJWT(jwtCode);
+//
+//        } catch (Exception e) {
+//            map.put("error_message", "验证码已失效或未发送!");
+//            return map;
+//        }
+//        String code1 = (String) claims.get("code");
+//        String email1 = claims.getSubject();
         if(!code1.equals(code)){
             map.put("error_message", "验证码错误!");
             return map;
@@ -111,8 +130,13 @@ public class RegisterServiceImpl implements RegisterService {
             return map;
         }
 
+        session.removeAttribute("email");
+        session.removeAttribute("code");
+
+        String photo = "http://q1.qlogo.cn/g?b=qq&nk=" + email + "&s=640";
+
         String encodedPassword = passwordEncoder.encode(password);
-        User user = new User(null, username, name, encodedPassword, email, 0, group, new Date(), 2, true);
+        User user = new User(null, username, name, encodedPassword, email, 0, group, new Date(), 2, true, photo);
         userDao.insert(user);
 
         map.put("error_message", "success");

@@ -2,10 +2,14 @@ package com.hnieacm.media.Service.Impl.email;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hnieacm.media.Service.Impl.utils.HttpRestUtils;
 import com.hnieacm.media.Service.email.SendEmailService;
 import com.hnieacm.media.dao.UserDao;
 import com.hnieacm.media.model.User;
+import com.hnieacm.media.utils.JwtUtil;
+import io.jsonwebtoken.JwtBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -45,11 +49,6 @@ public class SendEmailServiceImpl implements SendEmailService {
             return map;
         }
 
-        List<User> lists = userDao.selectList(new QueryWrapper<User>().eq("mail", email));
-        if(!lists.isEmpty()){
-            map.put("error_message", "该邮箱已被注册,可尝试找回密码");
-            return map;
-        }
 
         String code = creatCode();
         try {
@@ -59,14 +58,19 @@ public class SendEmailServiceImpl implements SendEmailService {
             params.add("content", "你的验证码为:" + code + ",有效时间为5分钟,请尽快使用!");
             params.add("email", email);
             String result = HttpRestUtils.post(url, params);
-            // session操作
-            HttpSession session = httpServletRequest.getSession();
-            session.setAttribute("code", code);
-            session.setAttribute("email", email);
-            session.setMaxInactiveInterval(5 * 60);
-
-            Map<String, String> map1 = JSON.parseObject(result, Map.class);
+            Map<String, String> map1 = new ObjectMapper().readValue(result, new TypeReference<>() {});
             map.put("error_message", map1.get("msg"));
+            if(map1.get("msg").equals("发送成功")){
+                // session操作
+//                JwtBuilder jwtBuilder = JwtUtil.creatJWT(email,5 * 60 * 1000L);
+//                jwtBuilder.claim("code",code);
+//                map.put("jwtCode",jwtBuilder.compact());
+                HttpSession session = httpServletRequest.getSession();
+                session.setAttribute("code", code);
+                session.setAttribute("email", email);
+                session.setMaxInactiveInterval(5 * 60);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             map.put("error_message", "邮箱服务错误,请联系管理员处理");

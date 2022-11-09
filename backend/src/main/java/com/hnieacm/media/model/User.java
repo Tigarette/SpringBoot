@@ -36,7 +36,9 @@ public class User {
 
     private String represent;
 
-    public User(Long id, String username, String name, String password, String mail, Integer stars, String grp, Date date, Integer admin, boolean enable) {
+    private String photo;
+
+    public User(Long id, String username, String name, String password, String mail, Integer stars, String grp, Date date, Integer admin, boolean enable, String photo) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -47,5 +49,6 @@ public class User {
         this.date = date;
         this.admin = admin;
         this.enable = enable;
+        this.photo = photo;
     }
 }

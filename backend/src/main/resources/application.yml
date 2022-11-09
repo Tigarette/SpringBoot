@@ -8,8 +8,3 @@ spring:
     username: root
     password: HNIEACMore
     driver-class-name: com.mysql.cj.jdbc.Driver
-  mail:
-    default-encoding: utf-8
-    host: smtp.exmail.qq.com
-    username: tigarette@hnieacm.com
-    password: cmRecGzWsGoZ2Jnd

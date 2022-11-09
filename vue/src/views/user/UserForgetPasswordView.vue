@@ -3,7 +3,7 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title text-center">注册</h4>
+                    <h4 class="card-title text-center">忘记密码</h4>
                 </div>
                 <form @submit.prevent="login">
                     <div class="card-body" id="model-body">
@@ -13,25 +13,12 @@
                                 autocomplete="off">
                         </div>
                         <div class="form-group" style="margin: 10px auto;">
-                            <input v-model="name" type="text" class="form-control" placeholder="真实姓名"
-                                autocomplete="off">
-                        </div>
-                        <div class="form-group" style="margin: 10px auto;">
-                            <input v-model="password" type="password" class="form-control" placeholder="密码"
+                            <input v-model="password" type="password" class="form-control" placeholder="新密码"
                                 autocomplete="off">
                         </div>
                         <div class="form-group" style="margin: 10px auto;">
                             <input v-model="confirm_password" type="password" class="form-control" placeholder="确认密码"
                                 autocomplete="off">
-                        </div>
-                        <div class="form-group" style="margin: 10px auto;">
-                            <select class="form-select" aria-label="Default select example" v-model="group"
-                                placeholder="选择你的年级部">
-                                <option value="default">选择你的年级部</option>
-                                <option value="20级">20级</option>
-                                <option value="21级">21级</option>
-                                <option value="22级">22级</option>
-                            </select>
                         </div>
                         <div class="row">
                             <div class="col-8">
@@ -50,7 +37,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" class="btn btn-primary form-control" value="注册" @click="register">
+                        <input type="submit" class="btn btn-primary form-control" value="提交" @click="forget">
                     </div>
                 </form>
             </div>
@@ -72,10 +59,7 @@ export default {
         let code = ref('');
         let username = ref('');
         let password = ref('');
-        let name = ref('');
         let confirm_password = ref('');
-        let group = ref('default');
-        let jwtCode = ref('');
         const Sendcode = () => {
             if (email.value === '') {
                 error_message.value = "邮箱为空,发送验证码失败!";
@@ -90,7 +74,6 @@ export default {
                     },
                     success(resp) {
                         error_message.value = resp.error_message;
-                        jwtCode.value = resp.jwtCode;
                     },
                     error(resp) {
                         console.log(resp);
@@ -99,21 +82,18 @@ export default {
             }
         }
 
-        const register = () => {
+        const forget = () => {
             $.ajax({
-                url: "http://localhost:3000/user/register/",
+                url: "http://localhost:3000/user/forget/",
                 type: "post",
                 xhrFields: { withCredentials: true },
                 crossDomain: true,
                 data: {
                     username: username.value,
-                    name: name.value,
                     password: password.value,
-                    conPassword: confirm_password.value,
+                    confirm: confirm_password.value,
                     email: email.value,
                     code: code.value,
-                    group: group.value,
-                    jwtCode: jwtCode.value,
                 },
                 success(resp) {
                     if (resp.error_message != 'success') {
@@ -133,16 +113,13 @@ export default {
             email,
             code,
             username,
-            name,
             password,
             confirm_password,
-            group,
             Sendcode,
-            register,
+            forget,
         }
     }
 }
-
 </script>
 
 <style scoped>

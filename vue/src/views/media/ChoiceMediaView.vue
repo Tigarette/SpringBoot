@@ -8,7 +8,7 @@
             name: 'media', params: {
                 dir_name: $route.params.dir_name, dir: selected, media_name: media
             }
-        }" v-if="media.includes('.mp4') || media.includes('.avi')">{{ media }}</router-link>
+        }" v-if="media.includes('.mp4')">{{ media }}</router-link>
         <router-link :to="{
             name: 'download', params: {
                 dir_name: $route.params.dir_name, dir: selected, media_name: media
