@@ -293,7 +293,6 @@ export default {
             clear,
             click_page,
         }
-
     },
     methods: {
         formatSeconds(value) {
