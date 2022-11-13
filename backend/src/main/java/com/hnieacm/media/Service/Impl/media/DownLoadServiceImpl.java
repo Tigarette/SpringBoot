@@ -25,7 +25,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         OutputStream outputStream=null;
         InputStream inputStream=null;
         BufferedInputStream bufferedInputStream=null;
-        byte[] bytes=new byte[1024];
+        byte[] bytes=new byte[4096];
         try{
             response.setHeader("Content-Disposition", "attachment;filename=" +  URLEncoder.encode(medianame, "UTF-8"));
             response.setContentType("application/octet-stream;charset=utf-8");

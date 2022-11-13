@@ -28,10 +28,10 @@ public class GetMediaNameServiceImpl implements GetMediaNameService {
         List<String> lists = new ArrayList<>();
         lists = List.of(new File(path).list());
 
-        if(20 * page + 20 >= new File(path).list().length){
-            return new ArrayList<>(lists.subList(20 * page, new File(path).list().length));
+        if(10 * page + 10 >= new File(path).list().length){
+            return new ArrayList<>(lists.subList(10 * page, new File(path).list().length));
         }else {
-            return new ArrayList<>(lists.subList(20 * page, 20 * page + 20));
+            return new ArrayList<>(lists.subList(10 * page, 10 * page + 10));
         }
     }
 }

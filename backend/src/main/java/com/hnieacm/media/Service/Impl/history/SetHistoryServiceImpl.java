@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,15 @@ public class SetHistoryServiceImpl implements SetHistoryService {
 
         User user = loginUser.getUser();
 
+        Map<String, String> map = new HashMap<>();
+
+        File file = new File("Z:/" + path);
+        if(!file.exists()){
+            map.put("error_message", "fail");
+            return map;
+        }
+
+
         QueryWrapper<History> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("video", path).eq("userid", user.getId());
 
@@ -54,7 +64,6 @@ public class SetHistoryServiceImpl implements SetHistoryService {
             historyDao.update(history, queryWrapper);
         }
 
-        Map<String, String> map = new HashMap<>();
         map.put("error_message", "success");
 
         return map;

@@ -3,7 +3,10 @@
         <div class="col-2"></div>
         <div class="col-8">
             <div class="alert alert-primary" role="alert">
-                若在5秒内未开始下载请点击<button class="btn-primary btn" @click="download">这里</button>
+                若在10秒内未开始下载请点击<button class="btn-primary btn" @click="download">这里</button>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                目前暂不支持avi视频,见谅
             </div>
         </div>
         <div class="col-2"></div>
@@ -13,6 +16,9 @@
 <script>
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import $ from 'jquery'
+import router from '@/router';
+
 export default {
 
     setup() {
@@ -48,8 +54,28 @@ export default {
             // 发送请求
             xhr.send();
         }
-
-        download();
+        $.ajax({
+            url: "http://localhost:3000/check/allPath/",
+            type: "post",
+            data: {
+                "dir_name": route.params.dir_name,
+                "dir": route.params.dir,
+                "media_name": route.params.media_name,
+            },
+            headers: {
+                Authorization: "Bearer " + store.state.user.token,
+            },
+            success(resp) {
+                if (resp.error_message === 'fail') {
+                    router.push({ name: "404" });
+                } else if (resp.error_message === 'success') {
+                    download();
+                }
+            },
+            error() {
+                router.push({ name: "404" });
+            }
+        })
 
         return {
             download,

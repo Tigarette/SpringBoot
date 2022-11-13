@@ -17,16 +17,17 @@ public class MediaPlayServiceImpl  implements MediaPlayService {
 
     @Override
     public String video(HttpServletRequest request, HttpServletResponse response, String path) {
-
-            try {
-                File file = new File(path);
-                if (file.exists()) {
-                    request.setAttribute(NonStaticResourceHttpRequestHandler.ATTR_FILE, path);
-                    nonStaticResourceHttpRequestHandler.handleRequest(request, response);
-                }
-            } catch (Exception e) {
-//                e.printStackTrace();
+        try {
+            File file = new File(path);
+            if (file.exists()) {
+                request.setAttribute(NonStaticResourceHttpRequestHandler.ATTR_FILE, path);
+                nonStaticResourceHttpRequestHandler.handleRequest(request, response);
+            }else{
+                return "404";
             }
+        } catch (Exception e) {
+//                e.printStackTrace();
+        }
 
         return path;
     }

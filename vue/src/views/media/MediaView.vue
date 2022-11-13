@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-body">
                     <videoPlay v-bind="options" @timeupdate="onTimeupdate" @play="onplay" @pause="onpause">
-                        <h1>111</h1>
+                        <h1>暂不支持video标签</h1>
                     </videoPlay>
                 </div>
             </div>
@@ -25,6 +25,7 @@ import { videoPlay } from "vue3-video-play";
 import { ref } from "vue";
 import $ from 'jquery'
 import store from "@/store";
+import router from "@/router";
 
 // js部分
 export default {
@@ -39,13 +40,11 @@ export default {
         let time = ref(0);
         let path = "http://localhost:3000/media/video/" + route.params.dir_name + "/" + route.params.dir + "/" + route.params.media_name;
         let path1 = route.params.dir_name + "/" + route.params.dir + "/" + route.params.media_name;
-
         const options = reactive({
             width: "100%", //播放器高度
             height: "100", //播放器高度
             color: "#409eff", //主题色
             title: route.params.media_name, //视频名称
-            src: path, //视频源
             muted: false, //静音
             webFullScreen: false,
             speedRate: ["0.5", "1.0", "1.25", "1.5", "2.0"], //播放倍速
@@ -67,6 +66,32 @@ export default {
             ], //显示所有按钮,
         });
 
+
+        $.ajax({
+            url: "http://localhost:3000/check/allPath/",
+            type: "post",
+            data: {
+                "dir_name": route.params.dir_name,
+                "dir": route.params.dir,
+                "media_name": route.params.media_name,
+            },
+            headers: {
+                Authorization: "Bearer " + store.state.user.token,
+            },
+            success(resp) {
+                if (resp.error_message === 'fail') {
+                    router.push({ name: "404" });
+                } else if (resp.error_message === 'success') {
+                    options.src = path;
+                    options.autoPlay = false;
+                    GetHistory();
+                }
+            },
+            error() {
+                router.push({ name: "404" });
+            }
+        })
+
         const onTimeupdate = () => {
             time = document.getElementById('dPlayerVideoMain').currentTime;
             store.commit("updateTime", time);
@@ -83,15 +108,16 @@ export default {
                     Authorization: "Bearer " + store.state.user.token,
                 },
                 success(resp) {
-                    store.commit("updateTime", resp.time);
-                    document.getElementById('dPlayerVideoMain').currentTime = resp.time;
+                    if (Math.ceil(resp.error_message) !== -1) {
+                        store.commit("updateTime", resp.time);
+                        document.getElementById('dPlayerVideoMain').currentTime = resp.time;
+                    }
                 },
                 error(resp) {
                     console.log(resp);
                 }
             })
         }
-        GetHistory();
 
         const onplay = () => {
             interval = setInterval(function () {

@@ -134,7 +134,9 @@ export default ({
                     Authorization: "Bearer " + context.state.token,
                 },
                 success(resp) {
-                    console.log(resp);
+                    if (resp.error_message === 'success') {
+                        console.log(resp);
+                    }
                 },
                 error(resp) {
                     console.log(resp);

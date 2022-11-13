@@ -13,7 +13,6 @@ import UserForgetPasswordView from '@/views/user/UserForgetPasswordView.vue'
 
 import store from '@/store'
 
-
 const routes = [{
         path: '/',
         name: "home",

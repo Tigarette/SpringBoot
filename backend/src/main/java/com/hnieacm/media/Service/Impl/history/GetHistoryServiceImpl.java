@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,12 @@ public class GetHistoryServiceImpl implements GetHistoryService {
         User user = loginUser.getUser();
 
         Map<String, Double> map = new HashMap<>();
+
+        File file = new File("Z:/" + path);
+        if(!file.exists()){
+            map.put("error_message", (double) -1);
+            return map;
+        }
 
         QueryWrapper<History> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("video", path).eq("userid", user.getId());
