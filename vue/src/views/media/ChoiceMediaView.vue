@@ -10,7 +10,7 @@
                     </select>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>序号</th>
@@ -18,21 +18,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(media, index) in medium" :key="media">
+                            <tr class="position-relative" v-for="(media, index) in medium" :key="media">
                                 <td>{{ (page - 1) * 10 + index + 1 }}</td>
                                 <td v-if="media.includes('.mp4')">
                                     <router-link :to="{
                                         name: 'media', params: {
                                             dir_name: $route.params.dir_name, dir: selected, media_name: media
                                         }
-                                    }">{{ media }}</router-link>
+                                    }" class="stretched-link nav-link">{{ media }}</router-link>
                                 </td>
                                 <td v-else>
                                     <router-link :to="{
                                         name: 'download', params: {
                                             dir_name: $route.params.dir_name, dir: selected, media_name: media
                                         }
-                                    }">{{ media }}</router-link>
+                                    }" class="stretched-link nav-link">{{ media }}</router-link>
                                 </td>
                             </tr>
                         </tbody>

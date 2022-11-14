@@ -72,6 +72,14 @@
                                         <input type="text" class="form-control" v-model="name">
                                     </div>
                                     <div class="form-group" style="margin: 10px auto;">
+                                        <label for="group" class="col-form-label">年级部:</label>
+                                        <select type="text" class="form-control" v-model="group" id="group">
+                                            <option>20级</option>
+                                            <option>21级</option>
+                                            <option>22级</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin: 10px auto;">
                                         <label for="floatingTextarea" class="col-form-label">个人简介:</label>
                                         <textarea class="form-control" v-model="represent" id="floatingTextarea"
                                             rows="3"></textarea>
@@ -105,10 +113,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(history, index) in histories" :key="history.id">
+                                <tr v-for="(history, index) in histories" :key="history.id" class="position-relative">
                                     <td>{{ (now_page - 1) * 10 + index + 1 }}</td>
                                     <td>
-                                        <router-link class="nav-link"
+                                        <router-link class="nav-link stretched-link"
                                             :to="{ name: 'media', params: { dir_name: splitString(history.video)[0], dir: splitString(history.video)[1], media_name: splitString(history.video)[2] } }">
                                             {{ splitString(history.video)[2] }}</router-link>
                                     </td>
@@ -157,6 +165,7 @@ export default {
         let error_msg = ref("");
         let name = ref(store.state.user.name);
         let represent = ref(store.state.user.represent);
+        let group = ref(store.state.user.grp);
         let histories = ref([]);
         let pages = ref([]);
         let current_page = 1;
@@ -196,6 +205,7 @@ export default {
                 data: {
                     name: name.value,
                     represent: represent.value,
+                    group: group.value,
                 },
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -204,6 +214,7 @@ export default {
                     if (resp.error_message === 'success') {
                         Modal.getInstance("#Moreinfo").hide();
                         store.commit("updateName", name.value);
+                        store.commit("updateGroup", group.value);
                         if (represent.value === '') {
                             store.commit("updateRepresent", "这个人很懒");
                         } else {
@@ -288,6 +299,7 @@ export default {
             name,
             pages,
             now_page,
+            group,
             updateInfo,
             change,
             clear,

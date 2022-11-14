@@ -19,8 +19,9 @@ public class UpdateInfoController {
 
         String name = data.get("name");
         String represent = data.get("represent");
+        String group = data.get("group");
 
-        return updateInfoService.updateInfo(name, represent);
+        return updateInfoService.updateInfo(name, represent, group);
     }
 
 }

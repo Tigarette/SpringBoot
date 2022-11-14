@@ -69,7 +69,10 @@ export default ({
         },
         updateRepresent(state, represent) {
             state.represent = represent;
-        }
+        },
+        updateGroup(state, group) {
+            state.grp = group;
+        },
     },
     actions: {
         login(context, data) {

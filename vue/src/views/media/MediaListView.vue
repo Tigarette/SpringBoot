@@ -7,20 +7,20 @@
                     <h3>视频分类</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>视频名称</th>
+                                <th scope="col">序号</th>
+                                <th scope="col">视频名称</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(media, index) in MediaList" :key="media">
+                            <tr class="position-relative" v-for="(media, index) in MediaList" :key="media">
                                 <td>{{ (page - 1) * 10 + index + 1 }}</td>
                                 <td>
                                     <router-link :to="{
                                         name: 'media_in', params: { 'dir_name': media }
-                                    }">
+                                    }" class="stretched-link">
                                         {{ media }}
                                     </router-link>
                                 </td>

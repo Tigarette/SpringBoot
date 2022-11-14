@@ -121,6 +121,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    console.log(to);
     if (to.meta.requestAuth && !store.state.user.is_login) {
         next({ name: "user_login" });
         store.commit("updateFromPage", to.path);
@@ -128,6 +129,11 @@ router.beforeEach((to, from, next) => {
         next();
     }
     if (from.name === 'media') {
+        let path = from.params.dir_name + "/" + from.params.dir + "/" + from.params.media_name;
+        store.dispatch("SetHistory", path);
+        store.dispatch("destoryInterval");
+    }
+    if (to.name === 'media' && store.state.user.time !== 0) {
         let path = from.params.dir_name + "/" + from.params.dir + "/" + from.params.media_name;
         store.dispatch("SetHistory", path);
         store.dispatch("destoryInterval");

@@ -19,7 +19,7 @@ public class UpdateInfoServiceImpl implements UpdateInfoService {
     private UserDao userDao;
 
     @Override
-    public Map<String, String> updateInfo(String name, String represent) {
+    public Map<String, String> updateInfo(String name, String represent, String group) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
@@ -51,6 +51,7 @@ public class UpdateInfoServiceImpl implements UpdateInfoService {
 
         user.setName(name);
         user.setRepresent(represent);
+        user.setGrp(group);
 
         userDao.updateById(user);
         map.put("error_message", "success");
