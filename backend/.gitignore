@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### 隐藏密钥文件 ###
-*secret.properties
+**/secret.properties
