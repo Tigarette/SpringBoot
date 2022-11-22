@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 隐藏密钥文件 ###
+*secret.properties
