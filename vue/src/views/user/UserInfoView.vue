@@ -35,7 +35,12 @@
                                     更新头像
                                 </button>
                             </div>
-                            <div class="col-6"></div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal"
+                                    data-bs-target="#UploadImage" disabled>
+                                    敬请期待
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- 修改密码 -->
@@ -125,11 +130,13 @@
                                             style="width: 80%;height: 80%;border-radius: 50%;" />
                                     </div>
                                     <div class="form-group" style="margin: 10px auto;">
-                                        <input type="file" class="form-control" @change="previewImage($event)">
+                                        <input type="file" class="form-control" id="fileInput"
+                                            @change="previewImage($event)">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        @click="PhotoClear()">取消</button>
                                     <button type="button" class="btn btn-primary" @click="uploadFile()">确定</button>
                                 </div>
                             </div>
@@ -325,24 +332,31 @@ export default {
         const previewImage = (event) => {
             file = event.target.files;
             let reader = "";
+            if (!(/^image\//).test(file[0].type)) {
+                error_msg.value = "请选择图片！";
+                document.getElementById('fileInput').value = "";
+                return;
+            }
+
             if (window.FileReader) {
                 reader = new FileReader();
             } else {
-                alert("您的浏览器不支持图片预览功能，如需该功能请升级您的浏览器！");
+                error_msg.value = "您的浏览器不支持图片预览功能，如需该功能请升级您的浏览器！";
                 return;
             }
             reader.onload = function (event) {
-                // 获取图片DOM
-                // var img = document.getElementById("priview");
-                // img.src = event.target.result;
                 photo.value = event.target.result
             };
             reader.readAsDataURL(file[0]);
         }
         const uploadFile = () => {
             if (file.length === 0) {
-                alert("请选择上传图片");
+                error_msg.value = "请选择上传图片";
                 return false;
+            } else if (!(/^image\//).test(file[0].type)) {
+                error_msg.value = "请选择图片！";
+                document.getElementById('fileInput').value = "";
+                return;
             } else {
                 let data = new FormData();
                 data.append('file', file[0]);
@@ -380,6 +394,12 @@ export default {
             error_msg.value = "";
         }
 
+        const PhotoClear = () => {
+            error_msg.value = "";
+            photo.value = store.state.user.photo;
+            document.getElementById('fileInput').value = "";
+        }
+
         return {
             password,
             conformpassword,
@@ -398,6 +418,7 @@ export default {
             change,
             clear,
             click_page,
+            PhotoClear,
         }
     },
     methods: {
