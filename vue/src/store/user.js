@@ -73,6 +73,9 @@ export default ({
         updateGroup(state, group) {
             state.grp = group;
         },
+        updatePhoto(state, photo) {
+            state.photo = photo;
+        }
     },
     actions: {
         login(context, data) {
@@ -105,7 +108,6 @@ export default ({
                     Authorization: "Bearer " + context.state.token,
                 },
                 success(resp) {
-                    console.log(resp);
                     if (resp.error_message === 'success') {
                         context.commit("updateUser", {
                             ...resp,

@@ -121,7 +121,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log(to);
     if (to.meta.requestAuth && !store.state.user.is_login) {
         next({ name: "user_login" });
         store.commit("updateFromPage", to.path);
