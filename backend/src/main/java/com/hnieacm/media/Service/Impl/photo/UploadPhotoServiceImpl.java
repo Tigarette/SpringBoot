@@ -56,7 +56,7 @@ public class UploadPhotoServiceImpl implements UploadPhotoService {
         String imagePath = user.getPhoto();
 
         imagePath = imagePath.split("/")[3] + "/" + imagePath.split("/")[4];
-        if(cosclient.doesObjectExist(bucketName, imagePath)){
+        if(cosclient.doesObjectExist(bucketName, imagePath) && !imagePath.equals("image/default.jpg")){
             cosclient.deleteObject(bucketName, imagePath);
             log.info("删除原有图片成功");
         }

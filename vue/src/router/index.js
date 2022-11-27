@@ -19,6 +19,7 @@ const routes = [{
         redirect: "/home/",
         meta: {
             requestAuth: true,
+            title: "拒收病婿",
         }
     },
     {
@@ -27,6 +28,7 @@ const routes = [{
         component: HomeView,
         meta: {
             requestAuth: true,
+            title: "拒收病婿",
         }
     },
     {
@@ -35,6 +37,7 @@ const routes = [{
         component: UserLoginView,
         meta: {
             requestAuth: false,
+            title: "安全登录",
         }
     },
     {
@@ -43,6 +46,7 @@ const routes = [{
         component: UserRegisterView,
         meta: {
             requestAuth: false,
+            title: "安全注册",
         }
     },
     {
@@ -51,6 +55,7 @@ const routes = [{
         component: UserInfoView,
         meta: {
             requestAuth: true,
+            title: "我的主页",
         }
     },
     {
@@ -59,6 +64,7 @@ const routes = [{
         component: UserForgetPasswordView,
         meta: {
             requestAuth: false,
+            title: "忘记密码",
         }
     },
     {
@@ -67,6 +73,7 @@ const routes = [{
         component: MediaListView,
         meta: {
             requestAuth: true,
+            title: "挑选种类ing",
         }
     },
     {
@@ -75,6 +82,7 @@ const routes = [{
         component: ChoiceMediaView,
         meta: {
             requestAuth: true,
+            title: "挑选视频ing",
         }
     },
     {
@@ -83,6 +91,7 @@ const routes = [{
         component: MediaView,
         meta: {
             requestAuth: true,
+            title: "观看视频",
         }
     },
     {
@@ -91,6 +100,7 @@ const routes = [{
         component: DownLoadView,
         meta: {
             requestAuth: true,
+            title: "安全下载",
         }
     },
     {
@@ -99,6 +109,7 @@ const routes = [{
         component: RankListView,
         meta: {
             requestAuth: true,
+            title: "卷王争霸",
         }
     },
     {
@@ -107,6 +118,7 @@ const routes = [{
         component: NotFoundView,
         meta: {
             requestAuth: false,
+            title: "页面被风吹跑啦",
         }
     },
     {
@@ -121,6 +133,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
     if (to.meta.requestAuth && !store.state.user.is_login) {
         next({ name: "user_login" });
         store.commit("updateFromPage", to.path);
