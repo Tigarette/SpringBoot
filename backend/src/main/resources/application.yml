@@ -6,5 +6,5 @@ spring:
   datasource:
     url: jdbc:mysql://10.0.38.112:3306/media?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
-    password: HNIEACMore
+    password: xxxx
     driver-class-name: com.mysql.cj.jdbc.Driver
