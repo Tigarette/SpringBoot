@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnieacm.media.Service.user.RegisterService;
 import com.hnieacm.media.dao.UserDao;
 import com.hnieacm.media.model.User;
-import com.hnieacm.media.utils.JwtUtil;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

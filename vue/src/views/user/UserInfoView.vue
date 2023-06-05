@@ -349,6 +349,7 @@ export default {
             };
             reader.readAsDataURL(file[0]);
         }
+
         const uploadFile = () => {
             if (file.length === 0) {
                 error_msg.value = "请选择上传图片";

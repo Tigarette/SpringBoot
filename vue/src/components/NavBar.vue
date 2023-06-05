@@ -13,17 +13,25 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item md-2">
 						<router-link :class="route_name == 'home_index' ? 'nav-link active mleft' : 'mleft nav-link'"
-							aria-current="page" :to="{ name: 'home_index' }">主页</router-link>
+							aria-current="page" :to="{ name: 'home_index' }"><i class="fa fa-home"
+								aria-hidden="true"></i> 主页</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link
 							:class="route_name == 'media_index' || route_name == 'media_in' || route_name == 'media' || route_name == 'download' ? 'mleft nav-link active' : 'mleft nav-link'"
-							:to="{ name: 'media_index' }">视频</router-link>
+							:to="{ name: 'media_index' }"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+							视频</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link
 							:class="route_name == 'ranklist_index' ? 'mleft nav-link active' : 'mleft nav-link'"
-							:to="{ name: 'ranklist_index' }">排行榜</router-link>
+							:to="{ name: 'ranklist_index' }"><i class="fa fa-list" aria-hidden="true"></i>
+							排行榜</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link :class="route_name == 'message_index' ? 'mleft nav-link active' : 'mleft nav-link'"
+							:to="{ name: 'message_index' }"><i class="fa fa-comments" aria-hidden="true"></i>
+							留言板</router-link>
 					</li>
 				</ul>
 				<ul class="navbar-nav" v-if="$store.state.user.is_login">
@@ -34,12 +42,14 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin: 0;">
 							<li>
-								<router-link class="dropdown-item" :to="{ name: 'user_info_index' }">个人信息</router-link>
+								<router-link class="dropdown-item" :to="{ name: 'user_info_index' }"><i
+										class="fa fa-user" aria-hidden="true"></i> 个人信息</router-link>
 							</li>
 							<li>
 								<hr class="dropdown-divider">
 							</li>
-							<li><a class="dropdown-item" @click="logout">退出登录</a></li>
+							<li><button class="dropdown-item" @click="logout"><i class="fa fa-sign-out"
+										aria-hidden="true"></i>退出登录</button></li>
 						</ul>
 					</li>
 				</ul>

@@ -135,7 +135,6 @@ export default {
                     },
                     success(resp) {
                         MediaList.value = resp.mediaList;
-                        console.log(MediaList.value);
                         MediaList.value.forEach(function (item) {
                             let arr = item.path.split('\\');
                             item.dir_name = arr[0];
@@ -177,7 +176,7 @@ export default {
 
             if (page >= 1 && page <= max_pages && !searchFlag.value) {
                 select(page);
-            } else {
+            } else if (page >= 1 && page <= max_pages && searchFlag.value) {
                 search(page);
             }
         }

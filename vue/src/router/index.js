@@ -10,6 +10,7 @@ import MediaListView from '@/views/media/MediaListView.vue';
 import ChoiceMediaView from '@/views/media/ChoiceMediaView.vue';
 import DownLoadView from '@/views/media/DownLoadView.vue';
 import UserForgetPasswordView from '@/views/user/UserForgetPasswordView.vue'
+import MessageView from '@/views/message/MessageView.vue'
 
 import store from '@/store'
 
@@ -110,6 +111,15 @@ const routes = [{
         meta: {
             requestAuth: true,
             title: "卷王争霸",
+        }
+    },
+    {
+        path: "/message/",
+        name: "message_index",
+        component: MessageView,
+        meta: {
+            requestAuth: true,
+            title: "金口玉言",
         }
     },
     {

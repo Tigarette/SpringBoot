@@ -6,7 +6,7 @@
                 若在10秒内未开始下载请点击<button class="btn-primary btn" @click="download">这里</button>
             </div>
             <div class="alert alert-danger" role="alert">
-                目前暂不支持avi视频,见谅
+                目前暂不支持avi视频,见谅。大文件下载过慢,目前暂未修改。
             </div>
         </div>
         <div class="col-2"></div>

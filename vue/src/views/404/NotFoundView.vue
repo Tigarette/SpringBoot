@@ -8,20 +8,20 @@
     <div class="row" style="width: 100%; margin-top: 30px;">
         <div class="col-3"></div>
         <div class="col-6">
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <div>
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                        <use xlink:href="#exclamation-triangle-fill" />
-                    </svg>
-                    <br />
-                    该页面找不到
-                    <hr>
-                    <h1 class="text-center">404</h1>
-                    <h2 class="text-center">NOT FOUND</h2>
-                    <hr>
-                    <button style="float: right;">
-                        返回主页
-                    </button>
+            <div class="alert alert-danger align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill" />
+                </svg>
+                该页面找不到
+                <hr>
+                <h1 class="text-center">404</h1>
+                <h2 class="text-center">NOT FOUND</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-9"></div>
+                    <div class="col-3">
+                        <router-link :to="{ name: 'home' }" class="btn btn-primary float-end">返回主页</router-link>
+                    </div>
                 </div>
             </div>
         </div>

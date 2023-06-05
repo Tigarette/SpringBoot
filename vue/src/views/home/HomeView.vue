@@ -16,7 +16,7 @@
                 <h3 class="mt-2 ml">
                     更新日志
                 </h3>
-                <blockquote class="row" cite="https://www.huxley.net/bnw/four.html">
+                <blockquote class="row">
                     <p>
                         2022年10月29日 用户注册
                         <br>
@@ -25,6 +25,8 @@
                         2022年11月22日 上线用户头像更新功能
                         <br>
                         2022年11月27日 上线查找视频功能
+                        <br>
+                        2022年12月07日 上线留言板功能
                     </p>
                 </blockquote>
             </div>
@@ -47,8 +49,22 @@
                     </p>
                 </blockquote>
             </div>
-            <h1 style="color:red; font-weight:bold">YYG已跑路</h1>
-            <span class="run">去更新新版内容,敬请期待</span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h1 style="color:red; font-weight:bold">YYG已跑路</h1>
+                <span class="run">去更新新版内容,敬请期待</span>
+            </div>
+            <div class="col-6">
+                <h1>注意事项:</h1>
+                <blockquote>
+                    Android工程师系列视频有丢丢的bug未修复。
+                    <br />
+                    另蜘蛛侠由于文件太大导致服务端未响应。
+                    <br />
+                    有什么bug的话可以在留言板提出,虽然不一定会修。
+                </blockquote>
+            </div>
         </div>
     </div>
 
